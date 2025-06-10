@@ -1,0 +1,17 @@
+*::before,
+*::after,
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: sans-serif;
+}
+
+main {
+  padding: 10px;
+}
+
+body {
+  margin: 0;
+}
