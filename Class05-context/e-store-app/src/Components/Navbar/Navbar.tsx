@@ -1,11 +1,13 @@
+import { useContext } from "react";
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
+import { ProductsContext } from "../../Contexts/ProductsContext";
 
-interface NavBarProps {
-  cartCount: number;
-}
+function Navbar() {
+  const { getProductsInCart } = useContext(ProductsContext);
 
-function Navbar({ cartCount }: NavBarProps) {
+  const cartCount = getProductsInCart.length;
+
   return (
     <nav className="Navbar">
       <ul>

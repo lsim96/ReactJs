@@ -1,15 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import SearchInput from "../../Components/SearchInput/SearchInput";
-import type { Product } from "../../models/product.model";
 import "./ProductsPage.css";
+import { ProductsContext } from "../../Contexts/ProductsContext";
 
-interface ProductsPageProps {
-  products: Product[];
-  addToCart: (selectedProduct: Product) => void;
-}
+function ProductsPage() {
+  const { products } = useContext(ProductsContext);
 
-function ProductsPage({ products, addToCart }: ProductsPageProps) {
   const [filteredProducts, setFilteredProducts] = useState(products);
 
   const onSearch = (value: string) => {
@@ -27,11 +24,7 @@ function ProductsPage({ products, addToCart }: ProductsPageProps) {
       <div>
         <div className="card-container">
           {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              addToCart={addToCart}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>

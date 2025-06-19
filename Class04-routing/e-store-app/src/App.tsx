@@ -16,8 +16,8 @@ function App() {
   const [products, setProducts] = useState<Product[]>(productsJSON);
 
   const addToCart = (selectedProduct: Product) => {
-    setProducts(prevProducts => {
-      return prevProducts.map(product => {
+    setProducts((prevProducts) => {
+      return prevProducts.map((product) => {
         if (selectedProduct.id === product.id) {
           product.inCart = true;
           return product;
@@ -27,9 +27,21 @@ function App() {
     });
   };
 
+  const removeFromCart = (selectedProduct: Product) => {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.id === selectedProduct.id
+          ? { ...product, inCart: false }
+          : product
+      )
+    );
+  };
+
+  const getProductsInCart = () => products.filter((product) => product.inCart);
+
   return (
     <div className="App">
-      <Header />
+      <Header cartCount={getProductsInCart().length} />
       <main>
         <Routes>
           <Route path="/" element={<Navigate to="/products" />} />
@@ -43,7 +55,15 @@ function App() {
               <ProductDetailsPage products={products} addToCart={addToCart} />
             }
           />
-          <Route path="/cart" element={<CartPage />} />
+          <Route
+            path="/cart"
+            element={
+              <CartPage
+                cartProducts={getProductsInCart()}
+                removeFromCart={removeFromCart}
+              />
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
