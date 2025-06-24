@@ -3,11 +3,22 @@ import ProductCard from "../../Components/ProductCard/ProductCard";
 import SearchInput from "../../Components/SearchInput/SearchInput";
 import "./ProductsPage.css";
 import { ProductsContext } from "../../Contexts/ProductsContext";
+import { useSearchParams } from "react-router-dom";
 
 function ProductsPage() {
   const { products } = useContext(ProductsContext);
 
   const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const [searchParams] = useSearchParams();
+
+  const query = searchParams.get("q");
+
+  // const sortBy = searchParams.get("sortBy");
+
+  // if (sortBy === "price") {
+  //   filteredProducts.sort((a, b) => a.price - b.price);
+  // }
 
   const onSearch = (value: string) => {
     setFilteredProducts(
