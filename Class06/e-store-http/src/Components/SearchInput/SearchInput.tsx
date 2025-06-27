@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./SearchInput.css";
-// import Button from "../Button/Button";
 
 interface SearchInputProps {
   defaultValue: string | null;
@@ -17,9 +16,12 @@ function SearchInput({ onSearch, defaultValue }: SearchInputProps) {
   useEffect(() => {
     const timerId = setTimeout(() => {
       onSearch(value);
+      console.log("search called");
     }, 500);
 
     return () => {
+      console.log("use effect cleanup called");
+
       clearTimeout(timerId);
     };
   }, [value, onSearch]);
@@ -32,12 +34,6 @@ function SearchInput({ onSearch, defaultValue }: SearchInputProps) {
         placeholder="Search by product name..."
         onChange={(e) => setValue(e.target.value)}
       />
-      {/* <Button
-        text=""
-        onBtnClick={() => {
-          onSearch(value);
-        }}
-      /> */}
     </div>
   );
 }
