@@ -12,6 +12,7 @@ interface ProductsContextInterface {
   removeProductQuantity: (selectedProduct: Product) => void;
   getProductsInCart: () => Product[];
   resetCart: () => void;
+  fetchProducts: () => Promise<void>;
 }
 
 export const ProductsContext = createContext<ProductsContextInterface>({
@@ -24,6 +25,7 @@ export const ProductsContext = createContext<ProductsContextInterface>({
     return [];
   },
   resetCart() {},
+  async fetchProducts() {},
 });
 
 function ProductsProvider({ children }: { children: ReactNode }) {
@@ -123,6 +125,7 @@ function ProductsProvider({ children }: { children: ReactNode }) {
           addProductQuantity,
           removeProductQuantity,
           resetCart,
+          fetchProducts,
         }}
       >
         {children}
